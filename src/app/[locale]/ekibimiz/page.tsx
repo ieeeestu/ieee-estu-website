@@ -5,6 +5,7 @@ import { SiteLayout } from '@/components/layout/SiteLayout';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { teamMembers } from '@/data/teamMembers';
+import { MEMBERSHIP_FORM_URL } from '@/config/links';
 import Image from 'next/image';
 import Link from 'next/link';
 import { buildLocalizedPath, ENGLISH_ROUTES } from '@/i18n/paths';
@@ -26,6 +27,14 @@ export default function TeamPage() {
     }
   };
 
+  // "Orman Emre Işıl" -> "OI"
+  const getInitials = (name: string) => {
+    const parts = name.trim().split(/\s+/);
+    const first = parts[0]?.[0] ?? '';
+    const last = parts.length > 1 ? parts[parts.length - 1][0] : '';
+    return (first + last).toLocaleUpperCase('tr-TR');
+  };
+
   const renderSection = (
     sectionKey: 'boardOfDirectors' | 'administrativeBoard' | 'auditBoard',
     title: string
@@ -33,6 +42,14 @@ export default function TeamPage() {
     const members = teamMembers.filter(
       (member) => member.section === sectionKey
     );
+
+    // Yönetim Kurulu masaüstünde satırda 3 kart (3 + 2). Kapsayıcı daraltılarak
+    // kart genişliği diğer kurullardaki (satırda 4) kartlarla aynı tutulur.
+    const threePerRow = sectionKey === 'boardOfDirectors';
+    const rowClass = threePerRow ? 'lg:w-[calc(75%-0.5rem)] lg:mx-auto' : '';
+    const cardWidthClass = threePerRow
+      ? 'lg:w-[calc(33.333%-1.334rem)]'
+      : 'lg:w-[calc(25%-1.5rem)]';
 
     return (
       <div key={sectionKey} className="mb-20">
@@ -42,27 +59,39 @@ export default function TeamPage() {
         >
           {title}
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* flex + justify-center: yarım kalan satırlar ortalanır */}
+        <div className={`flex flex-wrap justify-center gap-8 ${rowClass}`}>
           {members.map((member, index) => {
             const memberData = member[locale];
 
             return (
               <Card
                 key={index}
-                className="group hover:shadow-xl dark:hover:shadow-[#00629B]/20 dark:hover:ring-1 dark:hover:ring-[#00629B]/50 transition-all duration-300 rounded-2xl border-0 bg-white dark:bg-slate-950 hover:-translate-y-1"
+                className={`w-full md:w-[calc(50%-1rem)] ${cardWidthClass} group hover:shadow-xl dark:hover:shadow-[#00629B]/20 dark:hover:ring-1 dark:hover:ring-[#00629B]/50 transition-all duration-300 rounded-2xl border-0 bg-white dark:bg-slate-950 hover:-translate-y-1`}
               >
                 <CardContent className="p-6">
                   {/* Profile Image with Professional Frame */}
                   <div className="relative mb-6">
                     <div className="w-32 h-32 mx-auto rounded-2xl overflow-hidden bg-linear-to-br from-slate-200 to-slate-100 dark:from-slate-700 dark:to-slate-600 p-1">
                       <div className="relative w-full h-full rounded-xl overflow-hidden">
-                        <Image
-                          src={member.image}
-                          alt={memberData.name}
-                          fill
-                          sizes="128px"
-                          className="object-cover"
-                        />
+                        {member.image ? (
+                          <Image
+                            src={member.image}
+                            alt={memberData.name}
+                            fill
+                            sizes="128px"
+                            className="object-cover"
+                          />
+                        ) : (
+                          // Fotoğraf yoksa baş harfler
+                          <div
+                            className="w-full h-full flex items-center justify-center text-3xl font-bold text-white"
+                            style={{ backgroundColor: '#00629B' }}
+                            aria-label={memberData.name}
+                          >
+                            {getInitials(memberData.name)}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -132,7 +161,7 @@ export default function TeamPage() {
               </p>
               <button 
                 className="bg-[#00629B] hover:bg-[#004f7c] text-white px-8 py-3 rounded-xl font-medium transition-all duration-200 shadow-md hover:shadow-lg dark:shadow-[#00629B]/30 dark:hover:shadow-[#00629B]/50 dark:hover:ring-2 dark:hover:ring-[#00629B]/50"
-                onClick={() => window.open('https://forms.gle/bxo6W7J8bTKuB7x58', '_blank')}
+                onClick={() => window.open(MEMBERSHIP_FORM_URL, '_blank')}
               >
                 {t('joinButton')}
               </button>

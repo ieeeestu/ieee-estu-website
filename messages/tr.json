@@ -10,6 +10,7 @@
     "contact": "İletişim",
     "blog": "Blog",
     "xtreme": "Xtreme",
+    "certificate": "Sertifika",
     "joinUs": "Üye Ol",
     "menuTitle": "Menü",
     "menuDescription": "IEEE ESTU sayfalarında gezin",
@@ -53,7 +54,7 @@
       "Dünya'nın en büyük teknik profesyonel organizasyonu olan IEEE'nin bir parçası olarak, üyelerimize teknik ve kişisel gelişim fırsatları sunuyoruz.",
       "Workshop'lar, seminerler, yarışmalar ve sosyal etkinliklerle üyelerimizin kariyerlerine değer katıyoruz."
     ],
-    "callout": "IEEE ESTU Öğrenci Kolu, 2024-2025 akademik yılında aşağıdaki yönetim kadrosuyla hizmet vermektedir:",
+    "callout": "IEEE ESTU Öğrenci Kolu, 2026-2027 akademik yılında aşağıdaki yönetim kadrosuyla hizmet vermektedir:",
     "president": "Kulüp Başkanı",
     "advisor": "Kulüp Danışmanı",
     "mission": "Misyonumuz",
@@ -193,6 +194,7 @@
   "sponsors": {
     "title": "Sponsorlarımız",
     "subtitle": "IEEE ESTU Öğrenci Kolu'nu destekleyen değerli iş ortaklarımız.",
+    "ourSponsors": "Bizi Destekleyen Kurumlar",
     "comingSoon": "Çok Yakında",
     "comingSoonDescription": "Sponsorlarımız ve iş ortaklarımız hakkında bilgiler yakında bu sayfada yer alacak.",
     "partnershipTitle": "İş Ortağımız Olun",

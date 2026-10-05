@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, notFound } from 'next/navigation';
+import { FEATURES } from '@/config/features';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase/client';
 import { Loader2, ArrowLeft } from 'lucide-react';
@@ -25,6 +26,9 @@ interface BlogPost {
 }
 
 export default function BlogDetailPage() {
+  // Blog kapalıysa sayfa 404 döner (src/config/features.ts)
+  if (!FEATURES.blog) notFound();
+
   const params = useParams();
   const locale = params.locale as string;
   const slug = params.slug as string;

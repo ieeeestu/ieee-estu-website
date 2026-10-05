@@ -16,6 +16,7 @@ import {
   Mail,
 } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { FEATURES } from '@/config/features';
 
 export default function AdminLayout({
   children,
@@ -47,7 +48,7 @@ export default function AdminLayout({
   const navItems = [
     { name: 'Panel', href: '/admin', icon: LayoutDashboard },
     { name: 'Etkinlikler', href: '/admin/events', icon: Calendar },
-    { name: 'Blog', href: '/admin/blog', icon: FileText },
+    ...(FEATURES.blog ? [{ name: 'Blog', href: '/admin/blog', icon: FileText }] : []),
     { name: 'Bülten', href: '/admin/newsletter', icon: Mail },
   ];
 

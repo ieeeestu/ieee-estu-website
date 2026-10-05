@@ -1,12 +1,16 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useTranslations, useLocale } from 'next-intl';
 import { SiteLayout } from '@/components/layout/SiteLayout';
 import { Card, CardContent } from '@/components/ui/card';
 import { Building2, Handshake, Mail } from 'lucide-react';
+import { sponsors } from '@/data/sponsors';
 
 export default function SponsorsPage() {
   const t = useTranslations('sponsors');
+  const locale = useLocale() as 'tr' | 'en';
+  const activeSponsors = sponsors.filter((sponsor) => sponsor.active);
 
   return (
     <SiteLayout>
@@ -21,22 +25,72 @@ export default function SponsorsPage() {
             </p>
           </div>
 
-          {/* Coming Soon Placeholder */}
-          <div className="max-w-2xl mx-auto mb-12">
-            <Card className="text-center rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 bg-white dark:bg-slate-950">
-              <CardContent className="p-12">
-                <div className="w-20 h-20 mx-auto bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center mb-6">
-                  <Building2 className="h-10 w-10 text-[#00629B] dark:text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-primary mb-4">
-                  {t('comingSoon')}
-                </h3>
-                <p className="text-muted-foreground mb-6">
-                  {t('comingSoonDescription')}
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          {activeSponsors.length > 0 ? (
+            /* Sponsors */
+            <div className="mb-16">
+              <h3
+                className="text-2xl md:text-3xl font-bold text-center mb-10"
+                style={{ color: '#00629B' }}
+              >
+                {t('ourSponsors')}
+              </h3>
+              <div className="flex flex-wrap justify-center gap-8">
+                {activeSponsors.map((sponsor) => (
+                  <Card
+                    key={sponsor.key}
+                    className="w-full sm:w-80 rounded-2xl border-0 bg-white dark:bg-slate-950 hover:shadow-xl dark:hover:shadow-[#00629B]/20 dark:hover:ring-1 dark:hover:ring-[#00629B]/50 transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <CardContent className="p-8 flex flex-col items-center justify-center text-center">
+                      {/* Logo alanı karanlık modda da beyaz: koyu renkli logolar kaybolmasın */}
+                      <div className="h-32 w-full rounded-xl bg-white flex items-center justify-center p-5 mb-4">
+                        {sponsor.logo ? (
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={sponsor.logo}
+                              alt={sponsor.name[locale]}
+                              fill
+                              sizes="320px"
+                              className="object-contain"
+                            />
+                          </div>
+                        ) : (
+                          // Logo yoksa şirket adı
+                          <span
+                            className="text-2xl font-bold"
+                            style={{ color: '#00629B' }}
+                          >
+                            {sponsor.name[locale]}
+                          </span>
+                        )}
+                      </div>
+                      {sponsor.logo && (
+                        <p className="font-semibold text-primary">
+                          {sponsor.name[locale]}
+                        </p>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          ) : (
+            /* Coming Soon Placeholder */
+            <div className="max-w-2xl mx-auto mb-12">
+              <Card className="text-center rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 bg-white dark:bg-slate-950">
+                <CardContent className="p-12">
+                  <div className="w-20 h-20 mx-auto bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center mb-6">
+                    <Building2 className="h-10 w-10 text-[#00629B] dark:text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-primary mb-4">
+                    {t('comingSoon')}
+                  </h3>
+                  <p className="text-muted-foreground mb-6">
+                    {t('comingSoonDescription')}
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          )}
 
           {/* Partnership CTA */}
           <Card
