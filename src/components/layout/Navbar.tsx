@@ -15,6 +15,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { buildLocalizedPath, ENGLISH_ROUTES } from '@/i18n/paths';
+import { FEATURES } from '@/config/features';
+import { CERTIFICATE_VERIFY_URL, MEMBERSHIP_FORM_URL } from '@/config/links';
+
+// external: true olan öğeler başka bir siteye gider ve yeni sekmede açılır
+type NavItem = { name: string; href: string; external?: boolean };
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +29,7 @@ export function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { name: t('home'), href: buildLocalizedPath(ENGLISH_ROUTES.home, locale) },
     { name: t('about'), href: buildLocalizedPath(ENGLISH_ROUTES.about, locale) },
     { name: t('team'), href: buildLocalizedPath(ENGLISH_ROUTES.team, locale) },
@@ -33,8 +38,11 @@ export function Navbar() {
     { name: t('events'), href: buildLocalizedPath(ENGLISH_ROUTES.events, locale) },
     { name: t('sponsors'), href: buildLocalizedPath(ENGLISH_ROUTES.sponsors, locale) },
     { name: t('contact'), href: buildLocalizedPath(ENGLISH_ROUTES.contact, locale) },
-    { name: t('blog'), href: buildLocalizedPath(ENGLISH_ROUTES.blog, locale) },
+    ...(FEATURES.blog
+      ? [{ name: t('blog'), href: buildLocalizedPath(ENGLISH_ROUTES.blog, locale) }]
+      : []),
     { name: t('xtreme'), href: buildLocalizedPath(ENGLISH_ROUTES.xtreme, locale) },
+    { name: t('certificate'), href: CERTIFICATE_VERIFY_URL, external: true },
   ];
 
   const toggleDarkMode = () => {
@@ -56,12 +64,20 @@ export function Navbar() {
           href={buildLocalizedPath(ENGLISH_ROUTES.home, locale)}
           className="flex items-center space-x-3"
         >
+          {/* Açık temada mavi, koyu temada beyaz logo */}
           <div className="relative h-10 w-32 flex-shrink-0">
             <Image
               src="/images/b4a3589a03f0b647872f4323459f2489a86615e3.png"
               alt="IEEE ESTU"
               fill
-              className="object-contain"
+              className="object-contain dark:hidden"
+              priority
+            />
+            <Image
+              src="/images/ieee-logo-white.png"
+              alt="IEEE ESTU"
+              fill
+              className="object-contain hidden dark:block"
               priority
             />
           </div>
@@ -77,15 +93,27 @@ export function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium transition-colors hover:text-primary"
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navItems.map((item) =>
+            item.external ? (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                {item.name}
+              </a>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                {item.name}
+              </Link>
+            )
+          )}
         </div>
 
         {/* Actions */}
@@ -119,7 +147,7 @@ export function Navbar() {
           {/* Join Us Button */}
           <Button 
             className="hidden md:inline-flex bg-[#00629B] hover:bg-[#004A75]"
-            onClick={() => window.open('https://forms.gle/bxo6W7J8bTKuB7x58', '_blank')}
+            onClick={() => window.open(MEMBERSHIP_FORM_URL, '_blank')}
           >
             {t('joinUs')}
           </Button>
@@ -142,7 +170,14 @@ export function Navbar() {
                     src="/images/b4a3589a03f0b647872f4323459f2489a86615e3.png"
                     alt="IEEE ESTU"
                     fill
-                    className="object-contain"
+                    className="object-contain dark:hidden"
+                    priority
+                  />
+                  <Image
+                    src="/images/ieee-logo-white.png"
+                    alt="IEEE ESTU"
+                    fill
+                    className="object-contain hidden dark:block"
                     priority
                   />
                 </div>
@@ -156,22 +191,35 @@ export function Navbar() {
                 </div>
               </div>
               <nav className="flex flex-col space-y-1">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="px-3 py-3 text-base font-medium hover:bg-accent hover:text-accent-foreground rounded-lg transition-colors"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+                {navItems.map((item) =>
+                  item.external ? (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsOpen(false)}
+                      className="px-3 py-3 text-base font-medium hover:bg-accent hover:text-accent-foreground rounded-lg transition-colors"
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="px-3 py-3 text-base font-medium hover:bg-accent hover:text-accent-foreground rounded-lg transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  )
+                )}
                 <div className="pt-4 mt-4 border-t space-y-2">
                   <Button
                     className="w-full bg-[#00629B] hover:bg-[#004A75] text-white"
                     onClick={() => {
                       setIsOpen(false);
-                      window.open('https://forms.gle/bxo6W7J8bTKuB7x58', '_blank');
+                      window.open(MEMBERSHIP_FORM_URL, '_blank');
                     }}
                   >
                     {t('joinUs')}

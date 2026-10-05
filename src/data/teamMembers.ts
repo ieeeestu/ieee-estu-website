@@ -9,208 +9,195 @@ export interface TeamMemberData {
     position: string;
     department: string;
   };
-  image: string;
+  // Fotoğraf yoksa kartta baş harfler gösterilir. Fotoğrafı public/images/ içine koyup yolunu yazın.
+  image?: string;
   section: 'boardOfDirectors' | 'administrativeBoard' | 'auditBoard';
 }
 
 export const teamMembers: TeamMemberData[] = [
-  // Yönetim Kurulumuz (4 kişi)
+  // Yönetim Kurulumuz (5 kişi)
   {
     tr: {
-      name: 'Gizem Tuğuz',
+      name: 'Efe Aral',
       position: 'Başkan',
-      department: 'Bilgisayar Mühendisliği',
+      department: 'Uçak Mühendisliği',
     },
     en: {
-      name: 'Gizem Tuğuz',
+      name: 'Efe Aral',
       position: 'Chair',
-      department: 'Computer Engineering',
+      department: 'Aircraft Engineering',
     },
-    image: '/images/gt.jpg',
+    image: '/images/efe-aral.jpg',
     section: 'boardOfDirectors',
   },
   {
     tr: {
-      name: 'Hüseyin Özcınar',
+      name: 'Ahmet Kaan Can',
       position: 'Başkan Yardımcısı',
       department: 'Elektrik & Elektronik Mühendisliği',
     },
     en: {
-      name: 'Hüseyin Özcınar',
+      name: 'Ahmet Kaan Can',
       position: 'Vice Chair',
       department: 'Electrical & Electronics Engineering',
     },
-    image: '/images/ho.jpg',
+    image: '/images/ahmet-kaan-can.jpg',
     section: 'boardOfDirectors',
   },
   {
     tr: {
-      name: 'Sıla Alhan',
+      name: 'Efe Yerli',
+      position: 'Genel Sekreter',
+      department: 'Kimya Mühendisliği',
+    },
+    en: {
+      name: 'Efe Yerli',
+      position: 'General Secretary',
+      department: 'Chemical Engineering',
+    },
+    image: '/images/efe-yerli.jpg',
+    section: 'boardOfDirectors',
+  },
+  {
+    tr: {
+      name: 'Ali Karasalih',
+      position: 'Sponsorluk Sorumlusu',
+      department: 'Elektrik & Elektronik Mühendisliği',
+    },
+    en: {
+      name: 'Ali Karasalih',
+      position: 'Sponsorship Officer',
+      department: 'Electrical & Electronics Engineering',
+    },
+    image: '/images/ali-karasalih.jpg',
+    section: 'boardOfDirectors',
+  },
+  {
+    tr: {
+      name: 'Damla Baran',
       position: 'Sayman',
       department: 'Elektrik & Elektronik Mühendisliği',
     },
     en: {
-      name: 'Sıla Alhan',
+      name: 'Damla Baran',
       position: 'Treasurer',
       department: 'Electrical & Electronics Engineering',
     },
-    image: '/images/sa.jpeg',
+    image: '/images/damla-baran.jpg',
     section: 'boardOfDirectors',
   },
+  // İdari Kurulumuz (6 kişi - Komite Başkanları ve Koordinatörler)
   {
     tr: {
-      name: 'Ahmet Hakan Erdur',
-      position: 'Sekreter',
-      department: 'Makina Mühendisliği',
-    },
-    en: {
-      name: 'Ahmet Hakan Erdur',
-      position: 'Secretary',
-      department: 'Mechanical Engineering',
-    },
-    image: '/images/ahe.jpeg',
-    section: 'boardOfDirectors',
-  },
-  // İdari Kurulumuz (7 kişi - Komite Koordinatörleri)
-  {
-    tr: {
-      name: 'Efe Aral',
+      name: 'Orman Emre Işıl',
       position: 'AESS Başkanı',
-      department: 'Havacılık & Uzay Mühendisliği',
+      department: 'Elektrik & Elektronik Mühendisliği',
     },
     en: {
-      name: 'Efe Aral',
+      name: 'Orman Emre Işıl',
       position: 'AESS President',
-      department: 'Aerospace Engineering',
+      department: 'Electrical & Electronics Engineering',
     },
-    image: '/images/ea.jpg',
+    image: '/images/emre-isil.jpg',
     section: 'administrativeBoard',
   },
   {
     tr: {
-      name: 'Kutay Demirel',
+      name: 'Ayberk Arıcı',
       position: 'ComSoc Başkanı',
       department: 'Elektrik & Elektronik Mühendisliği',
     },
     en: {
-      name: 'Kutay Demirel',
+      name: 'Ayberk Arıcı',
       position: 'ComSoc President',
       department: 'Electrical & Electronics Engineering',
     },
-    image: '/images/kd.jpg',
+    image: '/images/ayberk-arici.jpg',
     section: 'administrativeBoard',
   },
   {
     tr: {
-      name: 'Alp Karınca',
-      position: 'CS Başkanı',
-      department: 'Bilgisayar Mühendisliği',
-    },
-    en: {
-      name: 'Alp Karınca',
-      position: 'CS President',
-      department: 'Computer Engineering',
-    },
-    image: '/images/ak.jpg',
-    section: 'administrativeBoard',
-  },
-  {
-    tr: {
-      name: 'Ahmet Kaan Can',
+      name: 'İsmail Deniz Çamursoy',
       position: 'PES Başkanı',
       department: 'Elektrik & Elektronik Mühendisliği',
     },
     en: {
-      name: 'Ahmet Kaan Can',
+      name: 'İsmail Deniz Çamursoy',
       position: 'PES President',
       department: 'Electrical & Electronics Engineering',
     },
-    image: '/images/akc.jpg',
+    image: '/images/ismail-deniz-camursoy.jpg',
     section: 'administrativeBoard',
   },
   {
     tr: {
-      name: 'Şenay Doğan',
+      name: 'Derin Eker',
       position: 'WIE Başkanı',
-      department: 'Çevre Mühendisliği',
+      department: 'Elektrik & Elektronik Mühendisliği',
     },
     en: {
-      name: 'Şenay Doğan',
+      name: 'Derin Eker',
       position: 'WIE President',
-      department: 'Environmental Engineering',
+      department: 'Electrical & Electronics Engineering',
     },
-    image: '/images/sd.jpg',
+    image: '/images/derin-eker.jpg',
     section: 'administrativeBoard',
   },
   {
     tr: {
-      name: 'Mahmut Kırgil',
+      name: 'Emre Duman',
       position: 'KÖK Koordinatörü',
-      department: 'Elektrik & Elektronik Mühendisliği',
+      department: 'Kimya',
     },
     en: {
-      name: 'Mahmut Kırgil',
+      name: 'Emre Duman',
       position: 'KÖK Coordinator',
-      department: 'Electrical & Electronics Engineering',
+      department: 'Chemistry',
     },
-    image: '/images/mk.png',
+    image: '/images/emre-duman.jpg',
     section: 'administrativeBoard',
   },
   {
     tr: {
-      name: 'Meryem Bilgiç',
+      name: 'Ege Öksüm',
       position: 'PR Koordinatörü',
-      department: 'Bulut Bilişim Operatörlüğü',
+      department: 'Dijital Oyun Tasarımı',
     },
     en: {
-      name: 'Meryem Bilgiç',
+      name: 'Ege Öksüm',
       position: 'PR Coordinator',
-      department: 'Cloud Computing Operatoring',
+      department: 'Digital Game Design',
     },
-    image: '/images/mb.jpg',
+    image: '/images/ege-oksum.jpg',
     section: 'administrativeBoard',
   },
-  // Denetim Kurulumuz (3 kişi)
+  // Denetim Kurulumuz (2 kişi)
   {
     tr: {
-      name: 'Ezgi Güner',
+      name: 'Hüseyin Özçınar',
       position: 'Denetim Kurulu Üyesi',
       department: 'Elektrik & Elektronik Mühendisliği',
     },
     en: {
-      name: 'Ezgi Güner',
+      name: 'Hüseyin Özçınar',
       position: 'Audit Board Member',
       department: 'Electrical & Electronics Engineering',
     },
-    image: '/images/eg.jpeg',
+    image: '/images/ho.jpg',
     section: 'auditBoard',
   },
   {
     tr: {
-      name: 'Katre Azra Yıldırım',
+      name: 'Sıla Alhan',
       position: 'Denetim Kurulu Üyesi',
       department: 'Elektrik & Elektronik Mühendisliği',
     },
     en: {
-      name: 'Katre Azra Yıldırım',
+      name: 'Sıla Alhan',
       position: 'Audit Board Member',
       department: 'Electrical & Electronics Engineering',
     },
-    image: '/images/kay.jpeg',
-    section: 'auditBoard',
-  },
-  {
-    tr: {
-      name: 'Selin Gül Kurt',
-      position: 'Denetim Kurulu Üyesi',
-      department: 'Elektrik & Elektronik Mühendisliği',
-    },
-    en: {
-      name: 'Selin Gül Kurt',
-      position: 'Audit Board Member',
-      department: 'Electrical & Electronics Engineering',
-    },
-    image: '/images/sg.jpeg',
+    image: '/images/sa.jpeg',
     section: 'auditBoard',
   },
 ];

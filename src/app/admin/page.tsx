@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Calendar, FileText, Users } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { FEATURES } from '@/config/features';
 
 export default function AdminDashboard() {
   const quickLinks = [
@@ -16,13 +17,17 @@ export default function AdminDashboard() {
       description: 'Etkinlikleri yönetin',
       color: 'text-blue-600',
     },
-    {
-      title: 'Blog',
-      href: '/admin/blog',
-      icon: FileText,
-      description: 'Blog yazılarını yönetin',
-      color: 'text-green-600',
-    },
+    ...(FEATURES.blog
+      ? [
+          {
+            title: 'Blog',
+            href: '/admin/blog',
+            icon: FileText,
+            description: 'Blog yazılarını yönetin',
+            color: 'text-green-600',
+          },
+        ]
+      : []),
   ];
 
   return (

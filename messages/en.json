@@ -10,6 +10,7 @@
     "contact": "Contact",
     "blog": "Blog",
     "xtreme": "Xtreme",
+    "certificate": "Certificate",
     "joinUs": "Join Us",
     "menuTitle": "Menu",
     "menuDescription": "Navigate through IEEE ESTU pages",
@@ -53,7 +54,7 @@
       "As part of IEEE, the world's largest technical professional organization, we offer our members opportunities for technical and personal development.",
       "We add value to our members' careers through workshops, seminars, competitions, and social events."
     ],
-    "callout": "IEEE ESTU Student Branch serves with the following management team for the 2024-2025 academic year:",
+    "callout": "IEEE ESTU Student Branch serves with the following management team for the 2026-2027 academic year:",
     "president": "Club President",
     "advisor": "Club Advisor",
     "mission": "Our Mission",
@@ -193,6 +194,7 @@
   "sponsors": {
     "title": "Our Sponsors",
     "subtitle": "Valuable business partners supporting IEEE ESTU Student Branch.",
+    "ourSponsors": "Organizations Supporting Us",
     "comingSoon": "Coming Soon",
     "comingSoonDescription": "Information about our sponsors and business partners will be available on this page soon.",
     "partnershipTitle": "Become Our Partner",

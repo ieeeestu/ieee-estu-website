@@ -56,8 +56,8 @@ export default function AboutPage() {
                 <p className="text-primary font-medium mb-2">{t('callout')}</p>
                 <div className="text-sm text-muted-foreground space-y-1">
                   <p>
-                    <span className="font-medium">{t('president')}:</span> Gizem
-                    TUĞUZ
+                    <span className="font-medium">{t('president')}:</span> Efe
+                    ARAL
                   </p>
                   <p>
                     <span className="font-medium">{t('advisor')}:</span> Prof.

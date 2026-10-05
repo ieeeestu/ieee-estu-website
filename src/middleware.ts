@@ -6,7 +6,10 @@ import {
   toEnglishPath,
   toInternalPath,
   stripLocaleSuffix,
+  LEGACY_REDIRECTS,
 } from './i18n/paths';
+import { MEMBERSHIP_FORM_URL } from './config/links';
+import { FEATURES } from './config/features';
 
 const localeSet = new Set(locales);
 const isLocale = (value: string) =>
@@ -24,6 +27,32 @@ export default function middleware(request: NextRequest) {
 
   if (isAsset) {
     return NextResponse.next();
+  }
+
+  // Eski site adresleri (sertifika sitesinin menüsü, eski Google bağlantıları)
+  let decodedPath = pathname;
+  try {
+    decodedPath = decodeURIComponent(pathname);
+  } catch {
+    // Bozuk kodlanmış adres: olduğu gibi devam et
+  }
+  const legacyBase = stripLocaleSuffix(decodedPath);
+  const legacyLocale = extractLocaleSuffix(decodedPath) ?? defaultLocale;
+  if (legacyBase === '/join') {
+    // Geçici (307): form linki değişirse tarayıcılar eskisini hatırlamasın
+    return NextResponse.redirect(MEMBERSHIP_FORM_URL);
+  }
+  if (!FEATURES.blog && (legacyBase === '/blog' || legacyBase.startsWith('/blog/'))) {
+    // Blog kapalı: eski blog linkleri (ör. sertifika sitesinin menüsü) ana sayfaya gitsin.
+    // Geçici (307): blog tekrar açılırsa tarayıcılar bu yönlendirmeyi hatırlamasın.
+    return NextResponse.redirect(new URL(buildLocalizedPath('/home', legacyLocale), url));
+  }
+  const legacyTarget = LEGACY_REDIRECTS[legacyBase];
+  if (legacyTarget) {
+    return NextResponse.redirect(
+      new URL(buildLocalizedPath(legacyTarget, legacyLocale), url),
+      308
+    );
   }
 
   if (pathname === '/' || pathname === '') {

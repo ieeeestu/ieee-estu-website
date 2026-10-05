@@ -35,6 +35,16 @@ export const ENGLISH_TO_INTERNAL: Record<string, string> = {
   '/events/apply': '/events/apply',
 };
 
+// Eski sitenin adresleri -> yeni sayfalar. Sertifika sitesinin menüsü ve
+// Google'daki eski bağlantılar hâlâ bu adresleri kullanıyor.
+export const LEGACY_REDIRECTS: Record<string, string> = {
+  '/ana-sayfa': '/home',
+  '/hakkında': '/about',
+  '/etkinlikler': '/events',
+  '/sponsorluklar-ve-isbirlikleri': '/sponsors',
+  '/iletişim': '/contact',
+};
+
 export const INTERNAL_TO_ENGLISH: Record<string, string> = Object.fromEntries(
   Object.entries(ENGLISH_TO_INTERNAL).map(([english, internal]) => [
     internal,

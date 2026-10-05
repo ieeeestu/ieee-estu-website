@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, notFound } from 'next/navigation';
+import { FEATURES } from '@/config/features';
 import { useTranslations } from 'next-intl';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase/client';
@@ -26,6 +27,9 @@ interface BlogPost {
 }
 
 export default function BlogPage() {
+  // Blog kapalıysa sayfa 404 döner (src/config/features.ts)
+  if (!FEATURES.blog) notFound();
+
   const params = useParams();
   const locale = params.locale as string;
   const t = useTranslations('blog');

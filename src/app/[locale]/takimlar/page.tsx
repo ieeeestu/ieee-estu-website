@@ -11,29 +11,33 @@ import { CheckCircle, ExternalLink, Users } from 'lucide-react';
 export default function SubTeamsPage() {
   const t = useTranslations('subteams');
 
+  // active: false olan takımlar sitede gösterilmez; tekrar göstermek için true yapın.
   const teams = [
     {
       key: 'earendil',
+      active: true,
       gradient: 'from-green-600 to-green-700',
+      badgeBackground: 'linear-gradient(to right, #16a34a, #15803d)',
       image: '/images/rover.jpg',
       instagram: 'https://www.instagram.com/earendilroverteam/',
-      applicationForm: 'https://forms.gle/j2cCxRKxYmijHqTV8',
+      applicationForm: 'https://docs.google.com/forms/d/e/1FAIpQLSdEmTU5NageBCmm7ru_oKu84LdzqaIszP9oMPEAUq729dNUUw/viewform',
+      achievementsTitleKey: 'achievementsTitle',
+      ctaButtonKey: 'cta.earendilButton',
     },
     {
       key: 'rovstech',
+      active: false,
       gradient: 'from-blue-600 to-blue-700',
+      badgeBackground: 'linear-gradient(to right, #2563eb, #1d4ed8)',
       image: '/images/rovstech.jpeg',
       instagram: 'https://www.instagram.com/rovstech/',
       applicationForm: 'https://forms.gle/XzSmajTXx7Ce4Jwn9',
+      achievementsTitleKey: 'rovstech.missionVisionTitle',
+      ctaButtonKey: 'cta.rovstechButton',
     },
   ];
 
-  const earendilApplicationForm = teams.find(
-    (team) => team.key === 'earendil'
-  )?.applicationForm;
-  const rovstechApplicationForm = teams.find(
-    (team) => team.key === 'rovstech'
-  )?.applicationForm;
+  const activeTeams = teams.filter((team) => team.active);
 
   return (
     <SiteLayout>
@@ -50,14 +54,11 @@ export default function SubTeamsPage() {
 
           {/* Teams */}
           <div className="space-y-16">
-            {teams.map((team, index) => {
+            {activeTeams.map((team, index) => {
               const teamData = t.raw(team.key) as { name: string; description: string; tagline?: string; features: string[]; achievements: string[] };
               const features = teamData.features as string[];
               const achievements = teamData.achievements as string[];
-              const achievementsTitle =
-                team.key === 'rovstech'
-                  ? t('rovstech.missionVisionTitle')
-                  : t('achievementsTitle');
+              const achievementsTitle = t(team.achievementsTitleKey);
 
               return (
                 <Card
@@ -88,9 +89,7 @@ export default function SubTeamsPage() {
                     >
                       <Badge
                         className="mb-4 px-3 py-1 rounded-full text-white"
-                        style={{
-                          background: `linear-gradient(to right, ${team.gradient})`,
-                        }}
+                        style={{ background: team.badgeBackground }}
                       >
                         {teamData.tagline}
                       </Badge>
@@ -190,26 +189,16 @@ export default function SubTeamsPage() {
                 {t('cta.description')}
               </p>
               <div className="flex flex-wrap justify-center gap-4 relative z-10">
-                <Button
-                  size="lg"
-                  className="bg-white hover:bg-gray-100 text-[#00629B] px-8 py-3 rounded-xl font-medium shadow-lg"
-                  onClick={() =>
-                    earendilApplicationForm &&
-                    window.open(earendilApplicationForm, '_blank')
-                  }
-                >
-                  {t('cta.earendilButton')}
-                </Button>
-                <Button
-                  size="lg"
-                  className="bg-white hover:bg-gray-100 text-[#00629B] px-8 py-3 rounded-xl font-medium shadow-lg"
-                  onClick={() =>
-                    rovstechApplicationForm &&
-                    window.open(rovstechApplicationForm, '_blank')
-                  }
-                >
-                  {t('cta.rovstechButton')}
-                </Button>
+                {activeTeams.map((team) => (
+                  <Button
+                    key={team.key}
+                    size="lg"
+                    className="bg-white hover:bg-gray-100 text-[#00629B] px-8 py-3 rounded-xl font-medium shadow-lg"
+                    onClick={() => window.open(team.applicationForm, '_blank')}
+                  >
+                    {t(team.ctaButtonKey)}
+                  </Button>
+                ))}
               </div>
             </CardContent>
           </Card>

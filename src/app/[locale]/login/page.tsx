@@ -53,12 +53,20 @@ export default function LoginPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-4">
           <div className="flex justify-center mb-4">
+            {/* Açık temada mavi, koyu temada beyaz logo */}
             <div className="relative h-16 w-48">
               <Image
                 src="/images/b4a3589a03f0b647872f4323459f2489a86615e3.png"
                 alt="IEEE ESTU"
                 fill
-                className="object-contain"
+                className="object-contain dark:hidden"
+                priority
+              />
+              <Image
+                src="/images/ieee-logo-white.png"
+                alt="IEEE ESTU"
+                fill
+                className="object-contain hidden dark:block"
                 priority
               />
             </div>
